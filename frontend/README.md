@@ -1,25 +1,23 @@
-﻿# Team Spica frontend
+# Flight PTY frontend
 
-React, TypeScript and Vite public flight lookup page.
+Interfaz pública de consulta de vuelos construida con React, TypeScript y Vite.
+No incluye acceso de administración.
 
-## Commands
+## Comandos
 
-- `npm run dev`: start the development server.
-- `npm run typecheck`: check TypeScript types.
-- `npm run build`: check types and build for production.
-- `npm run preview`: serve the production build locally.
-- `node --experimental-strip-types --test flights.test.mjs`: run lookup tests with Node 24.
+- `npm run dev`: inicia Vite.
+- `npm test`: ejecuta las pruebas del cliente HTTP con Node 24.
+- `npm run typecheck`: verifica los tipos TypeScript.
+- `npm run build`: verifica tipos y compila para producción.
+- `npm run preview`: sirve el build local.
 
-No lint tool is configured.
+## API y navegación
 
-## API routing
+Vite reenvía `/flights` a FastAPI en `http://127.0.0.1:8000`. El tablero consulta
+`GET /flights/` y cada detalle consulta `GET /flights/{flight_number}`. En
+producción, el proxy del hosting debe enviar `/flights/` al backend y el resto
+de rutas de la interfaz al fallback de la SPA.
 
-The browser requests `GET /flights/{flight_number}` on the same origin.
-Route `/flights/` to FastAPI through the hosting reverse proxy. A separate local
-API address must be confirmed before adding a Vite development proxy.
-The API returns a FlightResponse on success and HTTP 404 for an unknown flight.
-Connection errors, invalid responses and server errors stay on the search form.
-
-`/results` is a provisional page; it does not display flight details yet.
-`/login` is a placeholder for future authentication. Both routes must use the
-SPA fallback in production, while `/flights/` must reach FastAPI.
+El tablero usa `/` con parámetros opcionales `q` y `status`. Los detalles usan
+`/flight?number=…`; así la interfaz no ocupa el prefijo `/flights` reservado a
+la API. El detalle se vuelve a consultar al abrir su URL.
