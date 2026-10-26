@@ -51,25 +51,11 @@ The existing table, schema, primary key, and `scheduled_time` string storage are
 
 Practice-only task endpoints and redundant `run.py` entry point were removed from the deployable app.
 
-### Backend quick start
+## backend innit
+- step 1: uvicorn app.main:app --reload --app-dir backend
+http://127.0.0.1:8000
+ctrl + C to end
 
-From the repository root:
-
-```powershell
-.\.venv\Scripts\python.exe -m uvicorn app.main:app --reload --app-dir backend
-```
-
-The API is available at <http://127.0.0.1:8000>. Stop it with `Ctrl+C`.
-
-### Frontend quick start
-
-In a second terminal:
-
-```powershell
-cd frontend
-npm.cmd ci
-npm.cmd run dev
-```
-
-The frontend is available at <http://127.0.0.1:5173>. On Bash, use `npm`
-instead of `npm.cmd`.
+## frontend innit
+- Step 1: cd frontend
+- step 2: npm run dev
