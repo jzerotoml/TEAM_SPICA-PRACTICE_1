@@ -11,6 +11,10 @@ COPY . .
 
 RUN npm run build
 
+ARG VITE_API_BASE_URL
+
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 # Etapa 2: Servir con Nginx
 FROM nginx:alpine
 
